@@ -89,9 +89,9 @@ btn.forEach((button) => {
 
 function score () {
     const PS = document.getElementById("pScore");
-    PS.innerHTML = `Player Score: ${playerScore}`;
+    PS.innerHTML = `Player score: ${playerScore}`;
     const CS =document.getElementById("cScore");
-    CS.innerHTML = `Computer Score: ${computerScore}`;
+    CS.innerHTML = `Computer score: ${computerScore}`;
 }
 
 
