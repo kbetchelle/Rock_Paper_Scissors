@@ -23,66 +23,76 @@ function getComputerChoice() {
  }
 
 //view computerChoice selection in console 
-console.log(getComputerChoice());
 
-//initialize scores as global variables 
-let playerScore=0;
-let computerScore=0;
+//initialize global variables 
+let playerScore='';
+let computerScore='';
+let playerChoice='';
+let roundResult='';
 
 //create function to play 5 rounds 
-/*function playGame() {
-    while (playerScore < 5 && computerScore < 5) {
-        let playerChoice =prompt("rock, paper, or scissors?").toLowerCase();
-        let computerChoice=getComputerChoice();
-        alert(playRound(playerChoice, computerChoice));
+function playGame() {
+    if (playerScore === 5 || computerScore === 5) {
+        document.getElementById("rock").disabled = true;
+        document.getElementById("paper").disabled = true;
+        document.getElementById("scissors").disabled = true;
+        alert(`GAME OVER. 
+        Player score: ${playerScore} 
+        Computer score: ${computerScore}
+            `);
     }
-} */
-
-let playerChoice=''
-
+} 
 
 //create a function determine winner of each round 
 function playRound(playerChoice, computerChoice) {
     if (playerChoice == computerChoice) {
-        return 'It\'s a tie! You both chose ' + playerChoice + ' ';
+        return "tie";
     } else if (playerChoice == "rock" && computerChoice == "scissors" || 
         playerChoice == "paper" && computerChoice == "rock" ||
         playerChoice == "scissors" && computerChoice == "paper")  {
-        playerScore ++;
-        return 'You win this round! '+playerChoice+' beats '+computerChoice+'';
+            return "playerWin"
     } else {
-        computerScore ++;
-        return 'You\'ve lost :/. '+ computerChoice +' beats ' + playerChoice +'';
+        return "computerWin"
     }
-}
-
-//playGame();
-
-//assign button click to player selection 
-
+};
 
 //Creating UI
-const btn = document.querySelector("#playerBtn");
-btn.addEventListener('click', (event) => {
-    let target = event.target
-    
-    switch(target.id) {
-        case 'rock':
-            playerChoice='rock';
-            break;
-        case 'paper':
-            playerChoice='paper';
-            break;
-        case 'scissors':
-            playerChoice='scissors'
-            break;
+const btn = document.querySelectorAll("button");
+btn.forEach((button) => {
+    button.addEventListener('click', () => {
+    let playerChoice = button.className;
+    let computerChoice = getComputerChoice();
+    const displayResult = document.getElementById("result")
+    let roundResult = playRound(playerChoice,computerChoice);
+    console.log(playerChoice);
+    console.log(computerChoice);
+    console.log(roundResult);
+
+    if (roundResult === "tie") {
+        displayResult.textContent = "It's a tie."
+    } else if (roundResult=== "playerWin") {
+        displayResult.textContent = `You win. ${playerChoice} beats ${computerChoice}.`
+        playerScore ++;
+    } else {
+        displayResult.textContent = `You lose. ${computerChoice} beats ${playerChoice}.`
+        computerScore ++;
     }
-    playRound(playerChoice, computerChoice);
+    console.log(playerScore);
+    console.log(computerScore);
+    score();
+    playGame();
+    }
+    )
 });
 
-const PS = document.getElementById("pScore");
-PS.textContent = `Player Score: ${playerScore}`;
-const CS =document.getElementById("cScore");
-CS.textContent = `Computer Score: ${computerScore}`;
+//const playMatch = (playerChoice,computerChoice) => {
 
-        
+function score () {
+    const PS = document.getElementById("pScore");
+    PS.innerHTML = `Player Score: ${playerScore}`;
+    const CS =document.getElementById("cScore");
+    CS.innerHTML = `Computer Score: ${computerScore}`;
+}
+
+
+
