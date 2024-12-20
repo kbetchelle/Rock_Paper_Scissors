@@ -30,13 +30,16 @@ let playerScore=0;
 let computerScore=0;
 
 //create function to play 5 rounds 
-function playGame() {
+/*function playGame() {
     while (playerScore < 5 && computerScore < 5) {
         let playerChoice =prompt("rock, paper, or scissors?").toLowerCase();
         let computerChoice=getComputerChoice();
         alert(playRound(playerChoice, computerChoice));
     }
-}
+} */
+
+let playerChoice=''
+
 
 //create a function determine winner of each round 
 function playRound(playerChoice, computerChoice) {
@@ -53,4 +56,33 @@ function playRound(playerChoice, computerChoice) {
     }
 }
 
-playGame();
+//playGame();
+
+//assign button click to player selection 
+
+
+//Creating UI
+const btn = document.querySelector("#playerBtn");
+btn.addEventListener('click', (event) => {
+    let target = event.target
+    
+    switch(target.id) {
+        case 'rock':
+            playerChoice='rock';
+            break;
+        case 'paper':
+            playerChoice='paper';
+            break;
+        case 'scissors':
+            playerChoice='scissors'
+            break;
+    }
+    playRound(playerChoice, computerChoice);
+});
+
+const PS = document.getElementById("pScore");
+PS.textContent = `Player Score: ${playerScore}`;
+const CS =document.getElementById("cScore");
+CS.textContent = `Computer Score: ${computerScore}`;
+
+        
